@@ -26,7 +26,7 @@ begin
     readln (inf.nome);
 end;
 
-Procedure Cria_fila(Var fila:ptnodo);
+Procedure Cria_fila(Var fila, fim:ptnodo);
 
 Begin
    fila:=nil;
@@ -53,6 +53,7 @@ Begin
             aux^.ante := fila;
             fila:=aux;
             fim:=aux;
+            aux^.priori := False
          end
       else
          begin {Inclui no Fim da Fila}
@@ -61,6 +62,7 @@ Begin
             aux2^.prox := aux;
             fim:=aux;
             aux^.prox := nil;
+            aux^.priori := False
             
          end
 End;
@@ -107,7 +109,7 @@ Begin
          while aux <> nil do
          begin
             i:=i+1;
-            writeln(i,' - ',aux^.cli.nome);
+            writeln(i,' - ',aux^.cli.nome);        
             aux:=aux^.prox;
          end;
       End;
@@ -134,18 +136,89 @@ Begin
    Conta_elementos_fim:=i
 End;
 
+procedure prioridade (var fila,fim:ptnodo);
+var aux, aux2, aux3:ptnodo;
+		processo:string;
+begin
+	Conta_Elementos(fila);
+	write('Digite o nome do processo que desejas dar prioridade: ');
+	read(processo); 
+	
+	aux := fila;
+	aux2 := fila;
+	
+	while (processo <> aux^.cli.nome) and (aux <> nil) do
+	begin
+		aux2 := aux;
+		aux := aux^.prox;
+	end;
+		
+	if aux^.priori <> True then
+	begin
+		
+		aux3 := aux^.prox;
+		aux^.priori := True;
+		 
+		if aux <> fila then
+		begin
+			if (aux3 = nil) then
+			begin
+				aux2^.prox := nil;
+				fim := aux2;
+			end
+			else
+			begin
+				aux2^.prox := aux3;
+				aux3^.ante := aux2;
+			end;
+			
+			aux2 := fila;
+			aux3 := fila^.prox;
+			if fila^.priori = True then
+			begin
+				while (aux3^.priori = True) and (aux3 <> nil) do
+	    	begin
+					aux2 := aux3;
+					aux3 := aux3^.prox;
+					writeln(' | aux - ', aux^.cli.nome, ' | aux2 - ', aux2^.cli.nome, ' | aux3 - ', aux3^.cli.nome, aux3^.priori);
+					readkey;
+				end;
+			
+				if aux3 <> nil then
+				begin
+					aux2^.prox := aux;
+					aux^.prox := aux3;
+					aux3^.ante := aux;
+					aux^.ante := aux2
+				end;
+			end
+			else
+				fila := aux;
+				aux^.prox := aux2;
+				aux2^.ante := aux;
+			
+			
+			
+			
+		end;
+		
+	
+	end;	
+		
+end;
+
 begin
     op:=1;
-    cria_fila(f);
+    cria_fila(f, fim);
     while op<>0 do
     begin
        clrscr;
        writeln ('0-Sair');
        writeln ('1-Incluir');
        writeln ('2-Remover');
-       writeln ('3-Mostrar Fila de Impress„o');
-       writeln ('4-Mostrar Fila de Impress„o de Tr·s para Frente');
-       writeln ('5-Prioridades de Impress„o');
+       writeln ('3-Mostrar Fila de Impress√£o');
+       writeln ('4-Mostrar Fila de Impress√£o de Tr√°s para Frente');
+       writeln ('5-Prioridades de Impress√£o');
        readln (op);
        writeln;
        case op of
@@ -163,6 +236,9 @@ begin
           4: begin
                writeln (Conta_Elementos_fim(fim),' elementos');
                readkey;
+             end;
+          5: begin
+               prioridade(f,fim);
              end;
        end;
     end;
