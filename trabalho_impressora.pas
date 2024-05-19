@@ -1,20 +1,21 @@
 Program trabalho_impressora ;
 
 type cliente = record
-		 	nome:string;
-			qtdc:integer;
+     nome:string;
+     qtdc:integer;
 end;
 			 	
-		 ptnodo = ^elemento;
-     elemento = record
-         cli:cliente;
-         prox:ptnodo;
-         ante:ptnodo;
-         priori:boolean;
-     end;
+ptnodo = ^elemento;
+elemento = record
+   cli:cliente;
+   prox:ptnodo;
+   ante:ptnodo;
+   priori:boolean;
+end;
      
-var f:ptnodo;
-		fim:ptnodo;
+var 
+    f:ptnodo;
+    fim:ptnodo;
     nome_cli:cliente;
     op:byte;
     
@@ -22,7 +23,7 @@ Procedure leitura(var inf:cliente);
 
 begin
     clrscr;
-    WRITE ('Digite o numero: ');
+    write('Digite o nome: ');
     readln (inf.nome);
 end;
 
@@ -34,13 +35,13 @@ Begin
 End;
 
 {Funcao para Incluir no Inicio da fila}
-
 Procedure Inclui (Var fila, fim:ptnodo;inf:cliente);
 var aux,aux2:ptnodo;
 
 Begin
    new(aux);
-   if aux=nil then begin
+   if aux=nil then 
+   begin
       gotoxy (5,20);
       write ('Memoria cheia');
       readkey;
@@ -67,9 +68,7 @@ Begin
          end
 End;
 
-
 {Funcao para Remover no Inicio da fila}
-
 Procedure Remove (Var fila, fim:ptnodo);
 var aux, aux2 :ptnodo;
 
