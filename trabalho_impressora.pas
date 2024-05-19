@@ -1,21 +1,20 @@
 Program trabalho_impressora ;
 
 type cliente = record
-     nome:string;
-     qtdc:integer;
+		 	nome:string;
+			qtdc:integer;
 end;
 			 	
-ptnodo = ^elemento;
-elemento = record
-   cli:cliente;
-   prox:ptnodo;
-   ante:ptnodo;
-   priori:boolean;
-end;
+		 ptnodo = ^elemento;
+     elemento = record
+         cli:cliente;
+         prox:ptnodo;
+         ante:ptnodo;
+         priori:boolean;
+     end;
      
-var 
-    f:ptnodo;
-    fim:ptnodo;
+var f:ptnodo;
+		fim:ptnodo;
     nome_cli:cliente;
     op:byte;
     
@@ -23,7 +22,7 @@ Procedure leitura(var inf:cliente);
 
 begin
     clrscr;
-    write('Digite o nome: ');
+    WRITE ('Digite o numero: ');
     readln (inf.nome);
 end;
 
@@ -35,13 +34,13 @@ Begin
 End;
 
 {Funcao para Incluir no Inicio da fila}
+
 Procedure Inclui (Var fila, fim:ptnodo;inf:cliente);
 var aux,aux2:ptnodo;
 
 Begin
    new(aux);
-   if aux=nil then 
-   begin
+   if aux=nil then begin
       gotoxy (5,20);
       write ('Memoria cheia');
       readkey;
@@ -68,7 +67,9 @@ Begin
          end
 End;
 
+
 {Funcao para Remover no Inicio da fila}
+
 Procedure Remove (Var fila, fim:ptnodo);
 var aux, aux2 :ptnodo;
 
@@ -108,8 +109,8 @@ Begin
          while aux <> nil do
          begin
             i:=i+1;
-            writeln(i,' - ',aux^.cli.nome);        
-            aux:=aux^.prox;
+            writeln(i,' - ',aux^.cli.nome);              
+            aux:=aux^.prox; 
          end;
       End;
    Conta_elementos:=i
@@ -151,59 +152,63 @@ begin
 		aux2 := aux;
 		aux := aux^.prox;
 	end;
-		
-	if aux^.priori <> True then
-	begin
-		
-		aux3 := aux^.prox;
-		aux^.priori := True;
-		 
-		if aux <> fila then
-		begin
-			if (aux3 = nil) then
-			begin
-				aux2^.prox := nil;
-				fim := aux2;
-			end
-			else
-			begin
-				aux2^.prox := aux3;
-				aux3^.ante := aux2;
-			end;
-			
-			aux2 := fila;
-			aux3 := fila^.prox;
-			if fila^.priori = True then
-			begin
-				while (aux3^.priori = True) and (aux3 <> nil) do
-	    	begin
-					aux2 := aux3;
-					aux3 := aux3^.prox;
-					writeln(' | aux - ', aux^.cli.nome, ' | aux2 - ', aux2^.cli.nome, ' | aux3 - ', aux3^.cli.nome, aux3^.priori);
-					readkey;
-				end;
-			
-				if aux3 <> nil then
-				begin
-					aux2^.prox := aux;
-					aux^.prox := aux3;
-					aux3^.ante := aux;
-					aux^.ante := aux2
-				end;
-			end
-			else
-				fila := aux;
-				aux^.prox := aux2;
-				aux2^.ante := aux;
-			
-			
-			
-			
-		end;
-		
 	
-	end;	
-		
+	if aux = nil then
+	begin
+		writeln;
+		writeln('Processo não encontrado');
+		readkey;
+	end	
+	else
+	begin
+		if aux^.priori <> True then
+		begin
+			
+			aux3 := aux^.prox;
+			aux^.priori := True;
+			 
+			if aux <> fila then
+			begin
+				if (aux3 = nil) then
+				begin
+					aux2^.prox := nil;
+					fim := aux2;
+				end
+				else
+				begin
+					aux2^.prox := aux3;
+					aux3^.ante := aux2;
+				end;
+				aux2 := fila;
+				aux3 := fila;
+				
+				if fila^.priori = True then
+				begin
+					while (aux3^.priori = True) and (aux3 <> nil) do
+		    	begin 
+						aux2 := aux3;
+						aux3 := aux3^.prox;
+						writeln(' | aux - ', aux^.cli.nome, ' | aux2 - ', aux2^.cli.nome, ' | aux3 - ', aux3^.cli.nome, ' | priori - ',  aux3^.priori);
+						readkey;
+					end;
+					if aux3 <> nil then
+					begin
+						aux2^.prox := aux;
+						aux^.prox := aux3;
+						aux^.ante := aux2;
+						aux3^.ante := aux;
+					end;
+				end
+				else
+				begin
+					fila := aux;
+					aux^.prox := aux2;
+					aux^.ante := nil;
+					aux2^.ante := aux;
+				end;
+			end;
+		end;
+	end;			
 end;
 
 begin
