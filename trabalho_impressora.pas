@@ -188,8 +188,6 @@ begin
 		    	begin 
 						aux2 := aux3;
 						aux3 := aux3^.prox;
-						writeln(' | aux - ', aux^.cli.nome, ' | aux2 - ', aux2^.cli.nome, ' | aux3 - ', aux3^.cli.nome, ' | priori - ',  aux3^.priori);
-						readkey;
 					end;
 					if aux3 <> nil then
 					begin
@@ -197,6 +195,13 @@ begin
 						aux^.prox := aux3;
 						aux^.ante := aux2;
 						aux3^.ante := aux;
+					end
+					else
+					begin
+						aux2^.prox := aux;
+						aux^.prox := nil;
+						aux^.ante := aux2;
+						fim := aux;
 					end;
 				end
 				else
