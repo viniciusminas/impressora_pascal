@@ -26,12 +26,13 @@ type
     end;
 
 var
-    f: ptnodo;
-    fim: ptnodo;
+    f,f2,f3: ptnodo;
+    fim, fim2, fim3: ptnodo;
     nome_cli: cliente;
     op: byte;
     total_clientes: integer;
     total_copias: integer;
+    f_inc: integer;
 
 Procedure leitura(var inf: cliente);
 begin
@@ -63,10 +64,10 @@ begin
     end
     else
     begin
+    		aux^.cli.qtdc := 0;
         aux^.cli := inf;
         aux^.prox := nil;
         aux^.priori := False;
-	aux^.inf.qtdc := 0;
         if fila = nil then
         begin
             aux^.ante := nil;
@@ -250,21 +251,71 @@ begin
         case op of
             1: begin
                    leitura(nome_cli);
-                   inclui(f, fim, nome_cli);
+                   clrscr;
+                   writeln('1 - Fila Mono');
+                   writeln('2 - Fila Color');
+                   writeln('3 - Fila Plotter');
+                   writeln;
+                   write('Digite o número da fila em que desejas incluir o processo: ');                   
+                   read(f_inc);
+                   	if f_inc = 1 then
+                   		inclui(f, fim, nome_cli)
+                   	else if f_inc = 2 then
+                   		inclui(f2, fim2, nome_cli)
+                   	else if f_inc = 3 then
+                   		inclui(f3, fim3, nome_cli)
+                   	else
+                   		writeln('Fila de Impressão Inexistente!');					
                end;
             2: begin
-                   remove(f, fim);
+            			 clrscr;
+                   writeln('1 - Fila Mono');
+                   writeln('2 - Fila Color');
+                   writeln('3 - Fila Plotter');
+                   writeln;
+                   write('Digite o número da fila em que desejas remover o processo: ');                   
+                   read(f_inc);
+                   	if f_inc = 1 then
+                   		remove(f, fim)
+                   	else if f_inc = 2 then
+                   		remove(f2, fim2)
+                   	else if f_inc = 3 then
+                   		remove(f3, fim3)
+                   	else
+                   		writeln('Fila de Impressão Inexistente!');     
                end;
             3: begin
-                   writeln(conta_elementos(f), ' elementos');
+            			 writeln(conta_elementos(f), ' Elementos da FILA 1');
+            			 writeln;
+            			 writeln(conta_elementos(f2), 'Elementos da FILA 2');
+            			 writeln;
+            			 writeln(conta_elementos(f3), 'Elementos da FILA 3');
                    readkey;
                end;
             4: begin
-                   writeln(conta_elementos_fim(fim), ' elementos');
+                   writeln(conta_elementos_fim(fim), ' Elementos da FILA 1');
+            			 writeln;
+            			 writeln(conta_elementos_fim(fim2), 'Elementos da FILA 2');
+            			 writeln;
+            			 writeln(conta_elementos_fim(fim3), 'Elementos da FILA 3');
                    readkey;
                end;
             5: begin
-                   prioridade(f, fim);
+                   clrscr;
+                   writeln('1 - Fila Mono');
+                   writeln('2 - Fila Color');
+                   writeln('3 - Fila Plotter');
+                   writeln;
+                   write('Digite o número da fila em que desejas priorizar o processo: ');                   
+                   read(f_inc);
+                   	if f_inc = 1 then
+                   		prioridade(f, fim)
+                   	else if f_inc = 2 then
+                   		prioridade(f2, fim2)
+                   	else if f_inc = 3 then
+                   		prioridade(f3, fim3)
+                   	else
+                   		writeln('Fila de Impressão Inexistente!'); 
                end;
             6: begin
                    mostrar_informacoes;
