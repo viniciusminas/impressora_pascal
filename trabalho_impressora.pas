@@ -151,7 +151,7 @@ var
     processo: string;
 begin
     Conta_Elementos(fila);
-    write('Digite o nome do processo que desejas dar prioridade: ');
+    write('Digite o nome do processo que deseja dar prioridade: ');
     readln(processo);
 
     aux := fila;
@@ -256,7 +256,7 @@ begin
                    writeln('2 - Fila Color');
                    writeln('3 - Fila Plotter');
                    writeln;
-                   write('Digite o número da fila em que desejas incluir o processo: ');                   
+                   write('Digite o número da fila em que deseja incluir o processo: ');                   
                    read(f_inc);
                    	if f_inc = 1 then
                    		inclui(f, fim, nome_cli)
@@ -273,7 +273,7 @@ begin
                    writeln('2 - Fila Color');
                    writeln('3 - Fila Plotter');
                    writeln;
-                   write('Digite o número da fila em que desejas remover o processo: ');                   
+                   write('Digite o número da fila em que deseja remover o processo: ');                   
                    read(f_inc);
                    	if f_inc = 1 then
                    		remove(f, fim)
@@ -285,19 +285,21 @@ begin
                    		writeln('Fila de Impressão Inexistente!');     
                end;
             3: begin
-            			 writeln(conta_elementos(f), ' Elementos da FILA 1');
             			 writeln;
-            			 writeln(conta_elementos(f2), 'Elementos da FILA 2');
+            			 writeln(conta_elementos(f), ' Elemento(os) na FILA 1');
             			 writeln;
-            			 writeln(conta_elementos(f3), 'Elementos da FILA 3');
+            			 writeln(conta_elementos(f2), ' Elemento(os) na FILA 2');
+            			 writeln;
+            			 writeln(conta_elementos(f3), ' Elemento(os) na FILA 3');
                    readkey;
                end;
             4: begin
-                   writeln(conta_elementos_fim(fim), ' Elementos da FILA 1');
             			 writeln;
-            			 writeln(conta_elementos_fim(fim2), 'Elementos da FILA 2');
+                   writeln(conta_elementos_fim(fim), ' Elemento(os) na FILA 1');
             			 writeln;
-            			 writeln(conta_elementos_fim(fim3), 'Elementos da FILA 3');
+            			 writeln(conta_elementos_fim(fim2), ' Elemento(os) na FILA 2');
+            			 writeln;
+            			 writeln(conta_elementos_fim(fim3), ' Elemento(os) na FILA 3');
                    readkey;
                end;
             5: begin
@@ -306,7 +308,7 @@ begin
                    writeln('2 - Fila Color');
                    writeln('3 - Fila Plotter');
                    writeln;
-                   write('Digite o número da fila em que desejas priorizar o processo: ');                   
+                   write('Digite o número da fila em que deseja priorizar o processo: ');                   
                    read(f_inc);
                    	if f_inc = 1 then
                    		prioridade(f, fim)
