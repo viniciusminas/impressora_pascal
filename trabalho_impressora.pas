@@ -33,6 +33,7 @@ var
     total_clientes: integer;
     total_copias: integer;
     f_inc: integer;
+    qtdc:integer;
 
 Procedure leitura(var inf: cliente);
 begin
@@ -113,33 +114,37 @@ begin
 end;
 
 {Função para Contar Elementos da fila}
-Function Conta_Elementos(fila: ptnodo): byte;
+Function Conta_Elementos(fila: ptnodo; var qtdc:integer): byte;
 var
     aux: ptnodo;
     i: byte;
 begin
     i := 0;
+    qtdc := 0;
     aux := fila;
     while aux <> nil do
     begin
         i := i + 1;
         writeln(i, ' - ', aux^.cli.nome, ' (', aux^.cli.qtdc, ' cópias)');
+        qtdc := qtdc + aux^.cli.qtdc;
         aux := aux^.prox;
     end;
     Conta_Elementos := i;
 end;
 
-Function Conta_Elementos_fim(fim: ptnodo): byte;
+Function Conta_Elementos_fim(fim: ptnodo; var qtdc:integer): byte;
 var
     aux: ptnodo;
     i: byte;
 begin
     i := 0;
+    qtdc := 0;
     aux := fim;
     while aux <> nil do
     begin
         i := i + 1;
         writeln(i, ' - ', aux^.cli.nome, ' (', aux^.cli.qtdc, ' cópias)');
+        qtdc := qtdc + aux^.cli.qtdc;
         aux := aux^.ante;
     end;
     Conta_Elementos_fim := i;
@@ -149,10 +154,13 @@ procedure prioridade(var fila, fim: ptnodo);
 var
     aux, aux2, aux3: ptnodo;
     processo: string;
+    q : integer;
 begin
-    Conta_Elementos(fila);
+		q := 0;
+    Conta_Elementos(fila, q);
     write('Digite o nome do processo que deseja dar prioridade: ');
     readln(processo);
+    
 
     aux := fila;
     aux2 := fila;
@@ -286,20 +294,20 @@ begin
                end;
             3: begin
             			 writeln;
-            			 writeln(conta_elementos(f), ' Elemento(os) na FILA 1');
+            			 writeln(conta_elementos(f, qtdc), ' Elemento(os) na FILA 1 - ', qtdc, ' Cópias');
             			 writeln;
-            			 writeln(conta_elementos(f2), ' Elemento(os) na FILA 2');
+            			 writeln(conta_elementos(f2, qtdc), ' Elemento(os) na FILA 2 - ', qtdc, ' Cópias');
             			 writeln;
-            			 writeln(conta_elementos(f3), ' Elemento(os) na FILA 3');
+            			 writeln(conta_elementos(f3, qtdc), ' Elemento(os) na FILA 3 - ', qtdc, ' Cópias');
                    readkey;
                end;
             4: begin
             			 writeln;
-                   writeln(conta_elementos_fim(fim), ' Elemento(os) na FILA 1');
+                   writeln(conta_elementos_fim(fim, qtdc), ' Elemento(os) na FILA 1 - ', qtdc, ' Cópias');
             			 writeln;
-            			 writeln(conta_elementos_fim(fim2), ' Elemento(os) na FILA 2');
+            			 writeln(conta_elementos_fim(fim2, qtdc), ' Elemento(os) na FILA 2 - ', qtdc, ' Cópias');
             			 writeln;
-            			 writeln(conta_elementos_fim(fim3), ' Elemento(os) na FILA 3');
+            			 writeln(conta_elementos_fim(fim3, qtdc), ' Elemento(os) na FILA 3 - ', qtdc, ' Cópias');
                    readkey;
                end;
             5: begin
